@@ -41,7 +41,8 @@ int mouse_button,mouse_x,mouse_y;
 
 
 
-GLfloat player_x = 80.0, player_y = 80.0;
+GLfloat player_x = 180.0, player_y = -180.0;
 
-float camera_distance=3.0,camera_theta=-90.0,camera_fi=180.0;
+float camera_distance=3.0,camera_theta=90.0,camera_fi=0.0;
 float fov=45.0;
+GLuint v,f,p;

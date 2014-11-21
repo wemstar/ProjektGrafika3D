@@ -10,3 +10,4 @@ extern GLfloat world_map[map_width][map_height];
 
 void initOpenGL();
 void drawScene();
+void drawFlor();
