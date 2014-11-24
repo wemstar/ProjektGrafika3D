@@ -1,4 +1,4 @@
-#define map_width 22
+#define map_width 1024
 #define map_height 3
 
 GLfloat world_map[map_width][map_height]=

@@ -1,5 +1,5 @@
 #include "scene.hpp"
-
+#include <stdio.h>
 void initOpenGL()
 {
     glClearColor(1.0f, 1.0f, 1.0f, 0.0f);
@@ -28,23 +28,23 @@ void drawScene()
     glLoadIdentity();
 
 
-    gluLookAt(player_x,player_y,0.0,
+    gluLookAt(//player_x,player_y,0.0,
             player_x+camera_distance*cos(camera_theta)*cos(camera_fi),
             player_y+camera_distance*sin(camera_theta),
             camera_distance*cos(camera_theta)*sin(camera_fi),
 
-            //camera_distance*cos(camera_theta+0.1)*cos(camera_fi),
-            //camera_distance*sin(camera_theta+0.1),
-            //camera_distance*cos(camera_theta+0.1)*sin(camera_fi));
+            camera_distance*cos(camera_theta+0.1)*cos(camera_fi),
+            camera_distance*sin(camera_theta+0.1),
+            camera_distance*cos(camera_theta+0.1)*sin(camera_fi),
             0.0,0.0,1.0);
-    drawFlor();
+    //drawFlor();
     for (int i = 0; i<map_width; i++)
     {
 
         glPushMatrix();
-        glScalef(1.0, 1.0, world_map[i][2]);
+        //glScalef(1.0, 1.0, world_map[i][2]);
         glTranslatef((GLfloat)world_map[i][0]*block_size, (GLfloat)world_map[i][1]*block_size, 0.0/*(GLfloat)world_map[i][2]*0.5* block_size*/);
-
+        //printf("%f %f\n",world_map[i][0],world_map[i][1]);
         glutSolidCube(block_size);
 
         glPopMatrix();
