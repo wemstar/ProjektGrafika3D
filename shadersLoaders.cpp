@@ -7,8 +7,8 @@ void setShaders() {
     v = glCreateShader(GL_VERTEX_SHADER);
     f = glCreateShader(GL_FRAGMENT_SHADER);
 
-    vs = textFileRead("noise.vert");
-    fs = textFileRead("noise.frag");
+    vs = textFileRead("s7.vert");
+    fs = textFileRead("s7.frag");
 
     const char * vv = vs;
     const char * ff = fs;
@@ -20,7 +20,17 @@ void setShaders() {
 
     glCompileShader(v);
     glCompileShader(f);
-
+    GLint isCompiled = 0;
+    glGetShaderiv(v, GL_COMPILE_STATUS, &isCompiled);
+    if (isCompiled)
+    {
+        printf("Shader compile sucesfully\n");
+    }
+    glGetShaderiv(f, GL_COMPILE_STATUS, &isCompiled);
+    if (isCompiled)
+    {
+        printf("Shader compile sucesfully\n");
+    }
     p = glCreateProgram();
     glAttachShader(p,v);
     glAttachShader(p,f);

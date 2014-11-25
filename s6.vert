@@ -1,9 +1,8 @@
-varying float intensity;
+uniform float time;
 
 void main()
 {
-	vec3 lightDir = normalize(vec3(gl_LightSource[0].position));
-	intensity = dot(lightDir,gl_Normal);
-
-	gl_Position = ftransform();
+	vec4 pos = gl_Vertex;
+	pos.z=pos.z*sin(time);
+	gl_Position = gl_ModelViewProjectionMatrix * pos;
 }

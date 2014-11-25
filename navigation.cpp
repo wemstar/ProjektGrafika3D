@@ -1,4 +1,5 @@
 #include "navigation.hpp"
+#include <stdio.h>
 void handleKeys()
 {
     if (keys[27]) exit(0);
@@ -65,5 +66,6 @@ void mouseMotion (int x,int y)
         mouse_x=x;
         mouse_y=y;
         glutPostRedisplay ();
+
     }
 }

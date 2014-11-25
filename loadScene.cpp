@@ -28,8 +28,6 @@ void loadScene()
         ftemp= loadRow(tmp,1);
         world_map[i][0]=ftemp[0];
         world_map[i][1]=ftemp[1];
-
-printf("Field 3 would be %f %f\n",world_map[i][0],world_map[i][1]);
         free(tmp);
         if(i++ > 1000)break;
     }
