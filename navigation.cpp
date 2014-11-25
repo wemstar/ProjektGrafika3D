@@ -3,13 +3,28 @@
 void handleKeys()
 {
     if (keys[27]) exit(0);
-    if (specialkeys[102]) player_x += 5.0;
-    if (specialkeys[100]) player_x -= 5.0;
-    if (specialkeys[101])
-        player_y  -= 5.0;
+    if (specialkeys[GLUT_KEY_UP])
+    {
+        player_x += 80.0*cos(camera_theta)*cos(camera_fi);
+        player_y+=80.0*cos(camera_theta)*sin(camera_fi);
 
-    if (specialkeys[103])
-        player_y +=5.0;
+    }
+    if (specialkeys[GLUT_KEY_DOWN]){
+        player_x -= 80.0*cos(camera_theta)*cos(camera_fi);
+        player_y-=80.0*cos(camera_theta)*sin(camera_fi);
+
+    }
+    if (specialkeys[GLUT_KEY_LEFT])
+    {
+        player_y -= 80.0*cos(camera_theta)*cos(camera_fi);
+        player_x-=80.0*cos(camera_theta)*sin(camera_fi);
+    }
+
+    if (specialkeys[GLUT_KEY_RIGHT]){
+        player_y += 80.0*cos(camera_theta)*cos(camera_fi);
+        player_x+=80.0*cos(camera_theta)*sin(camera_fi);
+    }
+
 
 
 
