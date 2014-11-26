@@ -6,5 +6,5 @@ compile:
 run: all
 	./test
 remove:
-	rm -f *.o test
+	rm -f *.o
 

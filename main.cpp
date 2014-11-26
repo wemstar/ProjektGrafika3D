@@ -7,6 +7,7 @@
 #include "loadScene.hpp"
 #include "scene.hpp"
 #include "shadersLoaders.hpp"
+#include "navigation.hpp"
 
 
 

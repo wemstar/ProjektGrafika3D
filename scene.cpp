@@ -2,7 +2,7 @@
 
 
 #include <GL/glu.h>
-
+#include "navigation.hpp"
 #include <stdio.h>
 void initOpenGL()
 {
@@ -44,36 +44,34 @@ void drawScene()
     glLoadIdentity();
 
 
-    /*gluLookAt(//player_x,player_y,0.0,
-            player_x+camera_distance*cos(camera_theta)*cos(camera_fi),
-            player_y+camera_distance*sin(camera_theta),
-            camera_distance*cos(camera_theta)*sin(camera_fi),
 
-            camera_distance*cos(camera_theta+0.1)*cos(camera_fi),
-            camera_distance*sin(camera_theta+0.1),
-            camera_distance*cos(camera_theta+0.1)*sin(camera_fi),
-            0.0,0.0,1.0);*/
-    gluLookAt(player_x, player_y, 80.0,
-            player_x+80.0*cos(camera_theta)*cos(camera_fi), player_y+80.0*cos(camera_theta)*sin(camera_fi),80.0*sin(camera_theta),
+    gluLookAt(player_x, player_y, player_z,
+            player_x+80.0*cos(camera_theta)*cos(camera_fi), player_y+80.0*cos(camera_theta)*sin(camera_fi),player_z-80.0+80.0*sin(camera_theta),
             0.0, 0.0, 1.0);
     drawFlor();
 
-   /* GLfloat mShininess[] = {50};
+    GLfloat mShininess[] = {50};
 
-    GLfloat DiffuseMaterial[] = {1.0, 0.0, 0.0};
+    GLfloat DiffuseMaterial[3]={1.0, 0.0, 0.0};
+    if(water)
+    {
+        DiffuseMaterial[0]=0.0;
+        DiffuseMaterial[1]=1.0;
+    }
+
     GLfloat AmbientMaterial[] = {0.0, 0.0, 0.0};
     GLfloat SpecularMaterial[] = {1.0, 1.0, 1.0};
 
     glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, DiffuseMaterial);
     glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, AmbientMaterial);
     glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, SpecularMaterial);
-    glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, mShininess);*/
+    glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, mShininess);
     for (int i = 0; i<map_width; i++)
     {
 
 
         glPushMatrix();
-        //glScalef(1.0, 1.0, world_map[i][2]);
+        glScalef(1.0, 1.0, world_map[i][2]);
         glTranslatef((GLfloat)world_map[i][0]*block_size, (GLfloat)world_map[i][1]*block_size, 0.0/*(GLfloat)world_map[i][2]*0.5* block_size*/);
         //printf("%f %f\n",world_map[i][0],world_map[i][1]);
         glutSolidCube(block_size);

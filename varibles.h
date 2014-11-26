@@ -1,7 +1,7 @@
 #define map_width 1024
-#define map_height 3
+#define map_height 4
 
-GLfloat world_map[map_width][map_height]=
+GLfloat world_map[map_width][map_height];/*=
         {
                 {1.0,1.0,1.0},
                 {1.0,2.0,2.0},
@@ -30,10 +30,10 @@ GLfloat world_map[map_width][map_height]=
 
 
 
-        };
+        };*/
 
 bool keys[256], specialkeys[256];
-
+int water;
 
 int mouse_button,mouse_x,mouse_y;
 
@@ -41,7 +41,7 @@ int mouse_button,mouse_x,mouse_y;
 
 
 
-GLfloat player_x = 180.0, player_y = -180.0;
+GLfloat player_x = 180.0, player_y = -180.0,player_z=80.0;
 
 float camera_distance=3.0,camera_theta=90.0,camera_fi=0.0;
 float fov=45.0;

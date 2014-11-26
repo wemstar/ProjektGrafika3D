@@ -12,7 +12,8 @@ extern int mouse_button,mouse_x,mouse_y;
 
 extern GLfloat player_x ;
 extern GLfloat player_y;
-
+extern GLfloat player_z;
+extern int water;
 extern float camera_distance,camera_theta,camera_fi;
 extern float fov;
 void handleKeys();

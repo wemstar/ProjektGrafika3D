@@ -1,17 +1,33 @@
 #include "navigation.hpp"
+
+
 #include <stdio.h>
 void handleKeys()
 {
     if (keys[27]) exit(0);
+    if(keys['w'])
+    {
+        player_z+=10.0;
+    }
+    if(keys['s'])
+    {
+        player_z-=10.0;
+    }
+    if(keys['e'])
+    {
+        water=!water;
+    }
     if (specialkeys[GLUT_KEY_UP])
     {
         player_x += 80.0*cos(camera_theta)*cos(camera_fi);
         player_y+=80.0*cos(camera_theta)*sin(camera_fi);
 
+
     }
     if (specialkeys[GLUT_KEY_DOWN]){
         player_x -= 80.0*cos(camera_theta)*cos(camera_fi);
         player_y-=80.0*cos(camera_theta)*sin(camera_fi);
+
 
     }
     if (specialkeys[GLUT_KEY_LEFT])
