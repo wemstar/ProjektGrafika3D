@@ -71,7 +71,7 @@ void drawScene()
 
 
         glPushMatrix();
-        glScalef(1.0, 1.0, world_map[i][2]);
+        glScalef(1.0, 1.0, water?world_map[i][2]:world_map[i][3]);
         glTranslatef((GLfloat)world_map[i][0]*block_size, (GLfloat)world_map[i][1]*block_size, 0.0/*(GLfloat)world_map[i][2]*0.5* block_size*/);
         //printf("%f %f\n",world_map[i][0],world_map[i][1]);
         glutSolidCube(block_size);
