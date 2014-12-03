@@ -15,7 +15,11 @@ void handleKeys()
     }
     if(keys['e'])
     {
-        water=!water;
+        water=1;
+    }
+    if(keys['r'])
+    {
+        water=0;
     }
     if (specialkeys[GLUT_KEY_UP])
     {

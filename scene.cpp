@@ -62,10 +62,12 @@ void drawScene()
     GLfloat AmbientMaterial[] = {0.0, 0.0, 0.0};
     GLfloat SpecularMaterial[] = {1.0, 1.0, 1.0};
 
-    glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, DiffuseMaterial);
+    /*glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, DiffuseMaterial);
     glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, AmbientMaterial);
     glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, SpecularMaterial);
-    glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, mShininess);
+    glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, mShininess);*/
+    if(water)glUseProgram(p);
+    else glUseProgram(w);
     for (int i = 0; i<map_width; i++)
     {
 
@@ -85,6 +87,7 @@ void drawScene()
 
     glutSwapBuffers();
     glutPostRedisplay();
+    glUseProgram(0);
 }
 
 void drawFlor()
@@ -98,6 +101,15 @@ void drawFlor()
     glVertex3f( 2048.0f,  2048.0f, -64.0f);
 
     glVertex3f( 2048.0f,  -2048.0f, -64.0f);
+    /*for(int i=-2048;i<2048;i+=10)
+        for(int j=-2048;j<2048;j+=10)
+        {
+            glVertex3f( (GLfloat)i, (GLfloat)j, -64.0f);
+            glVertex3f( (GLfloat)i+10.0, (GLfloat)j, -64.0f);
+            glVertex3f( (GLfloat)i, (GLfloat)j+10.0, -64.0f);
+            glVertex3f( (GLfloat)i+10.0, (GLfloat)j+1.0, -64.0f);
+        }*/
+
     glEnd();
 
 }
