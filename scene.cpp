@@ -31,9 +31,12 @@ void initOpenGL()
 
     GLfloat light_ambient_global [4] = { 2.0,2.0,2.0,1 };
     glLightModelfv(GL_LIGHT_MODEL_AMBIENT,light_ambient_global);
-
+     
 
 }
+
+
+
 
 void drawScene()
 {
@@ -42,6 +45,14 @@ void drawScene()
 
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glLoadIdentity();
+
+    glEnable(GL_FOG);
+
+    float FogCol[3]={0.8f,0.8f,0.8f}; // Define a nice light grey
+    glFogfv(GL_FOG_COLOR,FogCol);
+    glFogi(GL_FOG_MODE, GL_LINEAR); // Note the 'i' after glFog - the GL_LINEAR constant is an integer.
+    glFogf(GL_FOG_START, 2.0*player_z);
+    glFogf(GL_FOG_END, 3.0*player_z);
 
 
 
@@ -62,25 +73,34 @@ void drawScene()
     GLfloat AmbientMaterial[] = {0.0, 0.0, 0.0};
     GLfloat SpecularMaterial[] = {1.0, 1.0, 1.0};
 
-    /*glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, DiffuseMaterial);
+    glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, DiffuseMaterial);
     glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, AmbientMaterial);
     glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, SpecularMaterial);
-    glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, mShininess);*/
-    if(water)glUseProgram(p);
-    else glUseProgram(w);
+    glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, mShininess);
+    /*if(water)glUseProgram(p);
+    else glUseProgram(w);*/
+    glBegin(GL_TRIANGLES);
     for (int i = 0; i<map_width; i++)
     {
 
-
+       
         glPushMatrix();
         glScalef(1.0, 1.0, water?world_map[i][2]:world_map[i][3]);
         glTranslatef((GLfloat)world_map[i][0]*block_size, (GLfloat)world_map[i][1]*block_size, 0.0/*(GLfloat)world_map[i][2]*0.5* block_size*/);
         //printf("%f %f\n",world_map[i][0],world_map[i][1]);
+        
         glutSolidCube(block_size);
+    
+       
+        
 
         glPopMatrix();
+        
 
     }
+    glEnd();
+
+
 
 
 
@@ -94,13 +114,13 @@ void drawFlor()
 {
     glBegin(GL_QUADS);
     // Lower left vertex
-    glVertex3f(-2048.0f, -2048.0f, -64.0f);
+    glVertex3f(-2048.0f, -2048.0f, 0.0f);
     // Lower right vertex
-    glVertex3f( -2048.0f, 2048.0f, -64.0f);
+    glVertex3f( -2048.0f, 1048576.0f, 0.0f);
     // Upper vertex
-    glVertex3f( 2048.0f,  2048.0f, -64.0f);
+    glVertex3f( 1048576.0f,  1048576.0f, 0.0f);
 
-    glVertex3f( 2048.0f,  -2048.0f, -64.0f);
+    glVertex3f( 1048576.0f,  -2048.0f, 0.0f);
     /*for(int i=-2048;i<2048;i+=10)
         for(int j=-2048;j<2048;j+=10)
         {

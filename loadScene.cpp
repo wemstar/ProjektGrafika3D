@@ -35,6 +35,6 @@ void loadScene()
         world_map[i][2]=ftemp[2];
         world_map[i][3]=ftemp[3];
         free(tmp);
-        if(i++ > 1000)break;
+        if(i++ > 15384)break;
     }
 }

@@ -3,7 +3,7 @@
 #include "glew.h"
 #include <GL/freeglut.h>
 
-#define map_width 1024
+#define map_width 16384
 #define map_height 4
 extern GLuint v,f,p,w;
 extern GLfloat world_map[map_width][map_height];
