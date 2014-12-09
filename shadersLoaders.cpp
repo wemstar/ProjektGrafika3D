@@ -81,3 +81,4 @@ void check_error(GLuint  shader)
         free(info_log);
     }
 }
+

@@ -3,6 +3,7 @@
 
 #include <GL/glu.h>
 #include "navigation.hpp"
+#include "SOIL.h"
 #include <stdio.h>
 void initOpenGL()
 {
@@ -31,7 +32,12 @@ void initOpenGL()
 
     GLfloat light_ambient_global [4] = { 2.0,2.0,2.0,1 };
     glLightModelfv(GL_LIGHT_MODEL_AMBIENT,light_ambient_global);
-     
+
+    buldingHgh=SOIL_load_OGL_texture("HighRiseGlass0055_2_S.jpg", SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, SOIL_FLAG_MIPMAPS);
+    buildingLow=SOIL_load_OGL_texture("BuildingsNeoclassical0246_1_S.jpg", SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, SOIL_FLAG_MIPMAPS);
+    buildingSmall=SOIL_load_OGL_texture("BuildingsNeoclassical0246_1_S.jpg", SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, SOIL_FLAG_MIPMAPS);
+
+
 
 }
 
@@ -46,7 +52,7 @@ void drawScene()
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glLoadIdentity();
 
-    glEnable(GL_FOG);
+    //glEnable(GL_FOG);
 
     float FogCol[3]={0.8f,0.8f,0.8f}; // Define a nice light grey
     glFogfv(GL_FOG_COLOR,FogCol);
@@ -73,23 +79,24 @@ void drawScene()
     GLfloat AmbientMaterial[] = {0.0, 0.0, 0.0};
     GLfloat SpecularMaterial[] = {1.0, 1.0, 1.0};
 
-    glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, DiffuseMaterial);
-    glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, AmbientMaterial);
-    glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, SpecularMaterial);
-    glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, mShininess);
-    /*if(water)glUseProgram(p);
-    else glUseProgram(w);*/
-    glBegin(GL_TRIANGLES);
+
+    if(water)glUseProgram(p);
+    else glUseProgram(w);
+
+    glEnable(GL_TEXTURE_2D);
     for (int i = 0; i<map_width; i++)
     {
 
-       
+        if(world_map[i][3] < 3.3 || world_map[i][2] < 1.66)glBindTexture(GL_TEXTURE_2D, buildingSmall);
+        else if(world_map[i][3] < 6.3 || world_map[i][2] < 3.33)glBindTexture(GL_TEXTURE_2D, buildingLow);
+        else glBindTexture(GL_TEXTURE_2D, buldingHgh);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
         glPushMatrix();
-        glScalef(1.0, 1.0, water?world_map[i][2]:world_map[i][3]);
-        glTranslatef((GLfloat)world_map[i][0]*block_size, (GLfloat)world_map[i][1]*block_size, 0.0/*(GLfloat)world_map[i][2]*0.5* block_size*/);
+        glTranslatef((GLfloat)world_map[i][0]*block_size, (GLfloat)world_map[i][1]*block_size, 0.0);
         //printf("%f %f\n",world_map[i][0],world_map[i][1]);
-        
-        glutSolidCube(block_size);
+        drawCube(water?world_map[i][2]:world_map[i][3]);
+
     
        
         
@@ -98,9 +105,13 @@ void drawScene()
         
 
     }
-    glEnd();
 
 
+
+
+
+
+    glDisable(GL_TEXTURE_2D);
 
 
 
@@ -108,6 +119,41 @@ void drawScene()
     glutSwapBuffers();
     glutPostRedisplay();
     glUseProgram(0);
+}
+
+void drawCube(GLfloat size)
+{
+    glBegin(GL_QUADS);
+    glNormal3f(0.0, 0.0, 1.0);
+    glTexCoord2d(1, 1); glVertex3f(0.0, 0.0, size* block_size);
+    glTexCoord2d(1, 0); glVertex3f(0.0, 64.0, size* block_size);
+    glTexCoord2d(0, 0); glVertex3f(64.0, 64.0,size* block_size);
+    glTexCoord2d(0, 1); glVertex3f(64.0, 0.0, size* block_size);
+
+    glTexCoord2d(0, 0); glVertex3f(64.0, 64.0,size* block_size);
+    glTexCoord2d(1, 0); glVertex3f(64.0, 0.0, size* block_size);
+    glTexCoord2d(1, size); glVertex3f(64.0, 0.0, 0.0);
+    glTexCoord2d(0, size); glVertex3f(64.0, 64.0,0.0);
+
+    glTexCoord2d(0, 0); glVertex3f(0.0, 64.0, size* block_size);
+    glTexCoord2d(1, 0); glVertex3f(64.0, 64.0,size* block_size);
+    glTexCoord2d(1, size); glVertex3f(64.0, 64.0,0.0);
+    glTexCoord2d(0, size); glVertex3f(0.0, 64.0, 0.0);
+
+    glTexCoord2d(0, 0); glVertex3f(0.0, 0.0, size* block_size);
+    glTexCoord2d(1, 0); glVertex3f(0.0, 64.0, size* block_size);
+    glTexCoord2d(1, size); glVertex3f(0.0, 64.0, 0.0);
+    glTexCoord2d(0, size); glVertex3f(0.0, 0.0, 0.0);
+
+    glTexCoord2d(0, 0); glVertex3f(0.0, 0.0, size* block_size);
+    glTexCoord2d(1, 0); glVertex3f(64.0, 0.0, size* block_size);
+    glTexCoord2d(1, size); glVertex3f(64.0, 0.0, 0.0);
+    glTexCoord2d(0, size); glVertex3f(0.0, 0.0, 0.0);
+
+
+
+
+    glEnd();
 }
 
 void drawFlor()

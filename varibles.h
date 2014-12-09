@@ -45,4 +45,4 @@ GLfloat player_x = 180.0, player_y = -180.0,player_z=80.0;
 
 float camera_distance=3.0,camera_theta=90.0,camera_fi=0.0;
 float fov=45.0;
-GLuint v,f,p,w,pv,pf;
+GLuint v,f,p,w,pv,pf,buldingHgh,buildingLow,buildingSmall;
